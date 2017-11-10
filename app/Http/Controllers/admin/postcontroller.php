@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\admin;
-
+use App\Model\user\post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+// use App\Http\Controllers\admin\post;
 
 class postcontroller extends Controller
 {
@@ -14,6 +15,8 @@ class postcontroller extends Controller
      */
     public function index()
     {
+      $posts = post::all();
+        return view('admin.post.show',compact('posts'));
 return view('admin/post/Show');
     }
 
@@ -35,7 +38,19 @@ return view('admin/post/Show');
      */
     public function store(Request $request)
     {
-        //
+        //return $request->all();
+        $this->validate($request,['title'=>'required',
+        'subtitle'=>'required',
+        'slug'=>'required',
+        'body'=>'required',
+        ]);
+        $post=new post;
+        $post->title = $request->title;
+        $post->subtitle = $request->subtitle;
+        $post->slug = $request->slug;
+        $post->body = $request->body;
+        $post->save();
+        return redirect(route('post.index'));
     }
 
     /**
