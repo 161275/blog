@@ -73,7 +73,13 @@
                 <label>Select Tags</label>
                 <select class="form-control select2 select2-hidden-accessible" multiple="" name="tags[]" data-placeholder="Select a State" style="width: 100%;" tabindex="-1" aria-hidden="true">
                   @foreach ($tags as $tag)
-                      <option value="{{$tag->id}}" >{{$tag->name}}</option>
+                      <option value="{{$tag->id}}"
+                      @foreach ($post->tags as $posttag)
+                        @if ($posttag->id == $tag->id)
+                          selected
+                        @endif
+                      @endforeach
+                      >{{$tag->name}}</option>
                   @endforeach
                 </select>
                 </div>
@@ -81,7 +87,13 @@
                 <label>Select Category</label>
                 <select class="form-control select2 select2-hidden-accessible" multiple="" name="categories[]" data-placeholder="Select a State" style="width: 100%;" tabindex="-1" aria-hidden="true">
 @foreach ($categories as $category)
-    <option value="{{$category->id}}" >{{$category->name}}</option>
+    <option value="{{$category->id}}"
+      @foreach ($post->categories as $postcategory)
+        @if ($postcategory->id == $category->id)
+          selected
+        @endif
+      @endforeach
+      >{{$category->name}}</option>
 @endforeach
 
 
@@ -108,7 +120,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body pad">
-                    <textarea class="textarea" placeholder="Place some text here" name="body"
+                    <textarea  name="body" id="editor1"
                               style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$post->text}}</textarea>
                 </div>
               </div>
@@ -132,6 +144,16 @@
   </div>
 @endsection
 @section('footersection')
+  <script src="{{asset('admin/bower_components/ckeditor/ckeditor.js')}}"></script>
+  <script>
+    $(function () {
+      // Replace the <textarea id="editor1"> with a CKEditor
+      // instance, using default configuration.
+      CKEDITOR.replace('editor1')
+      //bootstrap WYSIHTML5 - text editor
+      $('.textarea').wysihtml5()
+    })
+  </script>
 <script src="{{asset('admin/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
 <script>
 $(document).ready(function(){

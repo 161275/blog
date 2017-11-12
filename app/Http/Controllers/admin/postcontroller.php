@@ -79,7 +79,7 @@ class postcontroller extends Controller
      */
     public function edit($id)
     {
-      $post= post::where('id',$id)->first();
+      $post= post::with('tags','categories')->where('id',$id)->first();
       $tags =tag::all();
       $categories =category::all();
       return view('admin.post.edit',compact('post','tags','categories'));
@@ -94,7 +94,7 @@ class postcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-      
+
       $this->validate($request,['title'=>'required',
       'subtitle'=>'required',
       'slug'=>'required',

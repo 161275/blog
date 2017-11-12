@@ -36,10 +36,12 @@
   <script src="{{asset('admin/bower_components/fastclick/lib/fastclick.js')}}"></script>
   <!-- AdminLTE App -->
   <script src="{{asset('admin/dist/js/adminlte.min.js')}}"></script>
+
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   {{-- <script src="dist/js/pages/dashboard.js"></script> --}}
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('admin/dist/js/demo.js')}}"></script>
+  
 
   @section('footersection')
 
